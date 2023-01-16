@@ -2,10 +2,10 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 
-class Verify(commands.Cog):
+class verify(commands.Cog):
 
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, client):
+        self.client = client
 
     @commands.command(description='grants access to the server')
     async def verify(self, ctx, user: discord.Member):
@@ -36,5 +36,5 @@ class Verify(commands.Cog):
 
             await ctx.send("You don't have the 'manage roles' permission")
 
-def setup(bot):
-    bot.add_cog(Verify(bot))
+async def setup(client):
+   await client.add_cog(verify(client))
