@@ -8,33 +8,61 @@ class verify(commands.Cog):
         self.client = client
 
     @commands.command(description='grants access to the server')
-    async def verify(self, ctx, user: discord.Member):
+    async def verify(self, ctx, user: discord.Member=None):
 
         #checks if author has manage roles permission
         if ctx.author.guild_permissions.manage_roles:
 
-            guild = ctx.guild
-            member = user
+            if user==None:
+                e_wrong_cmd = discord.Embed(
+                    title='No user mentioned',
+                    description='Correct usage: `$verify @mention`',
+                    colour= 0x228B22
+                )
 
-            role = get(guild.roles, name='fish')
+                e_wrong_cmd.set_footer(text="Incorrect Command Usage")
 
-            #checks if the member being verified is already verified.
-            if role in member.roles:
-
-                await ctx.send(f"{member.mention} is already verified")
-
+                await ctx.send(embed=e_wrong_cmd)
+            
             else:
 
-                add_role = discord.utils.get(guild.roles, name='fish')
-                remove_role = discord.utils.get(guild.roles, name='washups')
+                guild = ctx.guild
+                member = user
 
-                await member.add_roles(add_role)
-                await member.remove_roles(remove_role)
+                role = get(guild.roles, name='fish')
 
-                await ctx.send(f"{user.mention} has been granted access to {guild.name}")
+                #checks if the member being verified is already verified.
+                if role in member.roles:
+
+                    #message embed
+                    e_alreadyVerified = discord.Embed(
+                        description=(f"{member.mention} is already verified :anger:"),
+                        colour=0x228B22
+                    )
+
+                    await ctx.send(embed=e_alreadyVerified)
+
+                else:
+
+                    add_role = discord.utils.get(guild.roles, name='fish')
+                    remove_role = discord.utils.get(guild.roles, name='washups')
+
+                    await member.add_roles(add_role)
+                    await member.remove_roles(remove_role)
+
+                    e_verified = discord.Embed(
+                    description=(f"{member.mention} has been granted access to {guild.name}! :white_check_mark:"),
+                    colour= 0x228B22
+                )
+
+                    await ctx.send(embed=e_verified)
         else:
 
-            await ctx.send("You don't have the 'manage roles' permission")
+            e_noPerms = discord.Embed(description='You are missing the `Manage Roles` permission :warning:', colour= 0x228B22)
+
+            e_noPerms.set_footer(text="Insufficient Permissions")
+
+            await ctx.send(embed=e_noPerms)
 
 async def setup(client):
    await client.add_cog(verify(client))

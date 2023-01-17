@@ -9,7 +9,7 @@ load_dotenv()
 token = os.getenv('TOKEN')
 
 #bot status
-activity = discord.Activity(type=discord.ActivityType.listening, name="Jamal")
+activity = discord.Activity(type=discord.ActivityType.listening, name="God's word")
 
 #sets up bot object with intents && adds bot 'status' 
 client = commands.Bot(command_prefix='$', intents= discord.Intents.all(), activity=activity)
@@ -23,7 +23,7 @@ async def load_extensions():
 
 @client.event
 async def on_ready():
-    print(f'\n\nLogged in as: {client.user.name} - {client.user.id}\nVersion: {discord.__version__}\n')
+    print(f'\nLogged in as: {client.user.name} - {client.user.id}\nVersion: {discord.__version__}\n')
     print(f"{client.user} is on")
 
 #starts bot 
