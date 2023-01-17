@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from discord import app_commands
 import asyncio
 import os
 
@@ -8,11 +9,22 @@ import os
 load_dotenv()
 token = os.getenv('TOKEN')
 
-#bot status
-activity = discord.Activity(type=discord.ActivityType.listening, name="God's word")
 
-#sets up bot object with intents && adds bot 'status' 
-client = commands.Bot(command_prefix='$', intents= discord.Intents.all(), activity=activity)
+class Client(commands.Bot):
+    
+    def __init__(self):
+    
+        intents=discord.Intents.all()
+        activity = discord.Activity(type=discord.ActivityType.listening, name="God's word")
+    
+        super().__init__(command_prefix='$', intents=intents, activity=activity)
+
+    async def setup_hook(self):
+        await self.tree.sync()
+        print(f"All slash commands have synced with")
+    
+
+client = Client()
     
 #loads each commands from commands folder
 async def load_extensions():
@@ -31,5 +43,6 @@ async def main():
     async with client:
         await load_extensions()
         await client.start(token, reconnect=True)
+
 
 asyncio.run(main())

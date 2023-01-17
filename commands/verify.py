@@ -7,8 +7,8 @@ class verify(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(description='grants access to the server')
-    async def verify(self, ctx, user: discord.Member=None):
+    @commands.hybrid_command(name='verify', description='grants access to the server', with_app_command=True)
+    async def verify(self, ctx: commands.Context, user: discord.Member=None):
 
         #checks if author has manage roles permission
         if ctx.author.guild_permissions.manage_roles:
@@ -62,7 +62,7 @@ class verify(commands.Cog):
 
             e_noPerms.set_footer(text="Insufficient Permissions")
 
-            await ctx.send(embed=e_noPerms)
+            await ctx.send(embed=e_noPerms, ephemeral=True)
 
 async def setup(client):
    await client.add_cog(verify(client))
