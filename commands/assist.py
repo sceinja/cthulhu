@@ -7,7 +7,6 @@ class assist(commands.Cog):
         self.client = client
 
     @commands.hybrid_command(name='assist', description="shows all available commands", with_app_command=True)
-    @app_commands.guilds(discord.Object(id = 1034136477782777926))
     async def getserverid(self, ctx: commands.Context):
             
         e_help = discord.Embed(

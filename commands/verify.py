@@ -9,7 +9,6 @@ class verify(commands.Cog):
         self.client = client
 
     @commands.hybrid_command(name='verify', description='grants access to the server', with_app_command=True)
-    @app_commands.guilds(discord.Object(id = 1034136477782777926))
     async def verify(self, ctx: commands.Context, user: discord.Member=None):
 
         #checks if author has manage roles permission

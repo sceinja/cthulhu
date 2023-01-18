@@ -19,7 +19,7 @@ class Client(commands.Bot):
         super().__init__(command_prefix='$', intents=intents, activity=activity)
 
     async def setup_hook(self):
-        await self.tree.sync(guild = discord.Object(id=1034136477782777926))
+        await self.tree.sync()
         print(f"All slash commands have synced with {self.user}")
     
 

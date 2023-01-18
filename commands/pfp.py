@@ -7,17 +7,12 @@ class pfp(commands.Cog):
         self.client = client
 
     @commands.hybrid_command(name='pfp', description="displays a user's profile picture", with_app_command=True)
-    @app_commands.guilds(discord.Object(id = 1034136477782777926))
     async def pfp(self, ctx: commands.Context, user: discord.Member=None):
 
         if user==None:
-            
             user = ctx.author
-
             await ctx.send(user.avatar)
-        
         else:
-
             await ctx.send(user.avatar)
 
 async def setup(client):
