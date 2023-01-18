@@ -9,4 +9,4 @@ Things to add:
 - [ ] Add moderation support \(Ban, Timeout, Kick, Warn)
 - [ ] Add a help command that shows all other commands and how to use them etc.
 
-__continued...__
+__(readme is inconsistent, i might add stuff and not update the readme)__
