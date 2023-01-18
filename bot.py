@@ -14,7 +14,7 @@ class Client(commands.Bot):
     def __init__(self):
     
         intents=discord.Intents.all()
-        activity = discord.Activity(type=discord.ActivityType.listening, name="/assist & $assist for help")
+        activity = discord.Activity(type=discord.ActivityType.playing, name="/assist | $assist for help")
     
         super().__init__(command_prefix='$', intents=intents, activity=activity)
 
