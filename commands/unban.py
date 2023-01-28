@@ -1,4 +1,4 @@
-
+import discord
 from discord.ext import commands
 
 class unban(commands.Cog):
@@ -6,19 +6,20 @@ class unban(commands.Cog):
         self.client = client
 
     @commands.hybrid_command(name='unban', description='unbans a banned user', with_app_command=True)
-    async def unban(self, ctx: commands.Context, userid):
+    async def unban(self, ctx: commands.Context, user_id: int):
         
         if ctx.author.guild_permissions.administrator:
-
-            if userid==None:
-                await ctx.send('Please specify a userid to be unbanned')
-
-            else:
-                await ctx.guild.unban(userid)
-                await ctx.send(f"`{userid}` has been unbanned!")
-
+            try:
+                await ctx.guild.unban(discord.Object(id=user_id))
+                await ctx.send(f'{user_id} has been unbanned.')
+            
+            except discord.NotFound:
+                await ctx.send(f'No user found with ID {user_id}.')
+            
+            except discord.Forbidden:
+                await ctx.send('I do not have the permission to unban that user.')
         else:
-            await ctx.send("You don't have valid permissions")
+            await ctx.send("You don't have permission to use this command.")
 
 async def setup(client):
     await client.add_cog(unban(client))
