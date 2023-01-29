@@ -9,10 +9,14 @@ class unban(commands.Cog):
     async def unban(self, ctx: commands.Context, user_id: int):
         
         if ctx.author.guild_permissions.administrator:
+            
+            if user_id==None:
+                await ctx.send("No user ID mentioned")
+
             try:
                 await ctx.guild.unban(discord.Object(id=user_id))
                 await ctx.send(f'{user_id} has been unbanned.')
-            
+
             except discord.NotFound:
                 await ctx.send(f'No user found with ID {user_id}.')
             
